@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>seonghyun's timer</title>
+    <style>
+        @font-face {
+            font-family: hannah;
+            src: url('fonts/air.ttf');
+        }
+        body {
+            background-color: #8FA6C6;
+            font-family: hannah;
+        }
+        div.all { /*전체 요소 가운데 정렬*/
+            position: absolute;
+            width:600px;
+            height:400px;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin:auto;
+        }
+        div.title {
+            text-align:center;
+            color:white;
+            height:1px;
+            padding-bottom: 20px;
+        }
+        div.Clock {
+            display: block;
+            width:500px;
+            height:400px;
+            margin: 0 auto;
+           
+            
+        }
+        #button1,#button2{
+            position:relative;
+            float:right;
+            margin-left:5px;
+            width:40px;
+            height:40px;
+        }
+        #timer {
+           display:block;
+           color: pink;
+           font-size:200px;
+        }
+    </style>
+    <script>
+
+        var state = true;
+        var total = 60*25;
+        var count = 0;
+        var x =null;
+        function printer() { // 시계 출력
+            total = total -1;
+            var min = "";
+            var sec = "";
+            if(total < 1) {
+                clearInterval(x);
+                stateChecker();
+            }
+            min = Math.floor(total/60);
+            sec = Math.floor(total% 60)
+            
+            if(min < 10){ //시계 4자리 맞춰주는 조건문
+                min = "0" + min;
+            }
+            if(sec < 10) {
+                sec = "0" + sec;
+            }
+            
+            document.getElementById('timer').textContent = min + ":" + sec; //시간 표시
+        }
+
+        function stateChecker() { //쉬는시간<->공부시간 switch
+            
+            if(state){
+                count =0;
+                state=false;
+                total=5*60;
+            } else {
+                count =0;
+                state = true;
+                total = 60*25;
+            }
+        }
+
+        function startClock() { //start
+            if(count >0) return;
+            count = count + 1;
+            x = setInterval(printer , 1000);
+        }
+
+        function stopClock() { //stop
+            if (x !=null)
+                clearInterval(x)
+            count = 0;
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="all">
+    <div class="title">
+        <h1>TIMER</h1>    
+    </div>
+
+    <div class="Clock"> 
+        <label id="timer">25:00</label>
+        <input type="image" id="button1" onclick="stopClock();" value="일시정지" src="images/stop.png">
+        <input type="image" id="button2" onclick="startClock();" value="시작" src="images/start.png">
+    </div>
+</div>    
+</body>
+</html>
