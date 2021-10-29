@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
         }
         div.all { /*전체 요소 가운데 정렬*/
             position: absolute;
-            width:600px;
+            width:500px;
             height:400px;
             top:0;
             bottom: 0;
@@ -56,6 +56,7 @@
         var total = 60*25;
         var count = 0;
         var x =null;
+
         function printer() { // 시계 출력
             total = total -1;
             var min = "";
@@ -101,6 +102,14 @@
                 clearInterval(x)
             count = 0;
         }
+        window.onload = function (){
+            var add5MinButton = document.getElementById("add5MinButton");
+            add5MinButton.addEventListener("click",function(){
+            total += 300;
+            console.log(total);
+        },false);
+        };
+        
     </script>
 
 </head>
@@ -115,6 +124,7 @@
         <label id="timer">25:00</label>
         <input type="image" id="button1" onclick="stopClock();" value="일시정지" src="images/stop.png">
         <input type="image" id="button2" onclick="startClock();" value="시작" src="images/start.png">
+        <button id="add5MinButton">5분 추가</button>
     </div>
 </div>    
 </body>
